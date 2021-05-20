@@ -59,6 +59,15 @@ int fib(int n) {
 }
 //fib(n) => f(n) => O(1) + O(2^n) => O(1) + O(2^n) =>  O(2^n)
 
+//6) O(1^n) - Recursive Loop 
+int sumRecursive(int n) {
+   if (n == 1) { 
+       return 1; //O(1)
+   } 
+   return n + sumRecursive(n - 1);//O(1) + O(1^n)
+}
+//sumRecursive(n) => f(n) => O(1) + O(1) + O(1^n) => O(1 + 1) + O(n) => O(1) + O(n) => O(n)
+
 int main() {   
     {
         ofstream fout("constant_perf.csv");
@@ -110,6 +119,17 @@ int main() {
         for (int n = 1; n < 45; n++) {
             timer.reset();
             cout << n << " fib => " <<  fib(n) << endl;
+            fout << n << ", "<< timer.elapsed() << endl;
+        }
+    }
+
+     {
+        ofstream fout("recursive_loop_perf.csv");
+        fout << "n, lapse" << endl;
+        Timer timer;
+        for (int n = 1; n < 1000; n++) {
+            timer.reset();
+            cout  << sumRecursive(n) << endl;
             fout << n << ", "<< timer.elapsed() << endl;
         }
     }
