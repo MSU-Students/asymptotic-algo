@@ -49,6 +49,16 @@ int sumQuad(int n) {
 }
 //sumQuad(n) => f(n) => O(1)  + O(1) x n x n  => O(1 + 1) + O(n x n) =>  O(1) + O(n^2) => O(n^2)
 
+
+//5) O(2^n) - Exponential 
+int fib(int n) {
+   if (n == 0 || n == 1) {
+       return 1;//O(1)
+   } 
+   return fib(n - 1) + fib(n - 2);//O(2^n)
+}
+//fib(n) => f(n) => O(1) + O(2^n) => O(1) + O(2^n) =>  O(2^n)
+
 int main() {   
     {
         ofstream fout("constant_perf.csv");
@@ -89,6 +99,17 @@ int main() {
         for (int n = 1; n < 1000; n++) {
             timer.reset();
             cout  << sumQuad(n) << endl;
+            fout << n << ", "<< timer.elapsed() << endl;
+        }
+    }
+
+    {
+        ofstream fout("exponential_perf.csv");
+        fout << "n, lapse" << endl;
+        Timer timer;
+        for (int n = 1; n < 45; n++) {
+            timer.reset();
+            cout << n << " fib => " <<  fib(n) << endl;
             fout << n << ", "<< timer.elapsed() << endl;
         }
     }
